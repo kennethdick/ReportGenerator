@@ -54,9 +54,32 @@ For further details take a look at LICENSE.txt.
 
 CHANGELOG
 
+2.1.8.0
+
+    * Fix: Issue #22: Correct order of historic coverage information
+
+2.1.7.0
+
+    * Fix: Issue #19: Changed Nuget package structure to support VS 2015
+    * Fix: Issue #20: Improved handling of classes with all async/await methods
+
+2.1.6.0
+
+    * Fix: Issue #18: Improved handling of nested classes
+    
+2.1.5.0
+
+    * Fix: Issue #16: Optimized CSS for printing HTML report
+
+2.1.4.0
+
+    * New: Improved log message for custom report plugins
+    * Fix: Issue #10: Better handling of file references for older OpenCover
+           versions
+
 2.1.3.0
 
-    * Fix: Issue #3: Better handling of PathTooLongExceptions
+    * Fix: Issue #8: Better handling of PathTooLongExceptions
 
 2.1.2.0
 

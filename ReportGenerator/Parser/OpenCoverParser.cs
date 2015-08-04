@@ -188,9 +188,13 @@ namespace Palmmedia.ReportGenerator.Parser
                 .Elements("Class")
                 .Where(c => !c.Element("FullName").Value.Contains("__")
                     && !c.Element("FullName").Value.Contains("<")
-                    && !c.Element("FullName").Value.Contains("/")
                     && c.Attribute("skippedDueTo") == null)
-                .Select(c => c.Element("FullName").Value)
+                .Select(c =>
+                    {
+                        string fullname = c.Element("FullName").Value;
+                        int nestedClassSeparatorIndex = fullname.IndexOf('/');
+                        return nestedClassSeparatorIndex > -1 ? fullname.Substring(0, nestedClassSeparatorIndex) : fullname;
+                    })
                 .Distinct()
                 .OrderBy(name => name)
                 .ToArray();
@@ -228,10 +232,8 @@ namespace Palmmedia.ReportGenerator.Parser
                 .Select(seqpnt => seqpnt.Attribute("fileid").Value)
                 .ToArray();
 
-            // Only required for backwards compatiability, older versions of OpenCover did not apply fileid for partial classes
+            // Only required for backwards compatibility, older versions of OpenCover did not apply fileid for partial classes
             var fileIdsOfClassInFileRef = methods
-                .Elements("SequencePoints")
-                .Elements("SequencePoint")
                 .Where(m => m.Element("FileRef") != null)
                 .Select(m => m.Element("FileRef").Attribute("uid").Value)
                 .ToArray();
